@@ -1,8 +1,8 @@
-package com.baharmand;
+package com.baharmand.model;
 
 public class Book {
-    private String title;
-    private String author;
+    private final String title;
+    private final String author;
     private boolean available;
     private Person borrowingPerson;
 

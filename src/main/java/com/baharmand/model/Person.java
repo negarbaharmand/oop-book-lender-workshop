@@ -1,4 +1,6 @@
-package com.baharmand;
+package com.baharmand.model;
+
+import com.baharmand.model.sequencer.PersonIdGenerator;
 
 public class Person {
     private final Integer personId;
@@ -7,25 +9,14 @@ public class Person {
     private Book[] borrowedBooks;
     private Integer numBorrowedBooks;
 
-    public Person(Integer personId, String firstName, String lastName) {
-        this.personId = personId;
+    public Person(String firstName, String lastName) {
+        this.personId = PersonIdGenerator.generateNextPersonId();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.borrowedBooks = new Book[10];
+        this.borrowedBooks = new Book[5];
         this.numBorrowedBooks = 0;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Integer getPersonId() {
-        return personId;
-    }
 
     public void loanBook(Book book) {
         if (book.isAvailable()) {
@@ -43,18 +34,23 @@ public class Person {
         }
     }
 
-    public void displayBorrowedBooks() {
-        System.out.println(firstName + " " + lastName + " has borrowed the following books:");
-        for (int i = 0; i < numBorrowedBooks; i++) {
-            System.out.println("- " + borrowedBooks[i].getTitle());
-        }
-    }
-
     public void displayBooks() {
         System.out.println(firstName + " " + lastName + " has borrowed the following books:");
         for (int i = 0; i < numBorrowedBooks; i++) {
             System.out.println("- " + borrowedBooks[i].getTitle() + " by " + borrowedBooks[i].getAuthor());
         }
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Integer getPersonId() {
+        return personId;
     }
 
 
