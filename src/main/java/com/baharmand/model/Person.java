@@ -17,6 +17,13 @@ public class Person {
         this.numBorrowedBooks = 0;
     }
 
+    public Integer getNumBorrowedBooks() {
+        return numBorrowedBooks;
+    }
+
+    public Book[] getBorrowedBooks() {
+        return borrowedBooks;
+    }
 
     public void loanBook(Book book) {
         if (book.isAvailable()) {

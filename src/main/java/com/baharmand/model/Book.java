@@ -6,6 +6,10 @@ public class Book {
     private boolean available;
     private Person borrowingPerson;
 
+    public Person getBorrowingPerson() {
+        return borrowingPerson;
+    }
+
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
