@@ -18,6 +18,12 @@ public class PersonTest {
         testPerson = new Person("Erik", "Johansson");
     }
 
+    @Test
+    public void testPersonCreation() {
+        assertEquals("Erik", testPerson.getFirstName());
+        assertEquals("Johansson", testPerson.getLastName());
+        assertEquals(0, testPerson.getBorrowedBooks().length);
+    }
 
     @Test
     public void testPersonId() {
@@ -39,10 +45,13 @@ public class PersonTest {
     }
 
     @Test
-    public void testLoanBookBorrowedBooks() {
+    public void testLoanReturnBorrowedBooks() {
         testPerson.loanBook(mockBook);
         assertEquals(1, testPerson.getBorrowedBooks().length);
         assertEquals(mockBook, testPerson.getBorrowedBooks()[0]);
+        testPerson.returnBook(mockBook);
+        assertEquals(0, testPerson.getBorrowedBooks().length);
+
     }
 
 }

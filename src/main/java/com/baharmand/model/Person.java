@@ -16,7 +16,7 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.borrowedBooks = new Book[0];
-       // this.numBorrowedBooks = 0;
+        // this.numBorrowedBooks = 0;
     }
 
     public Book[] getBorrowedBooks() {
@@ -35,19 +35,22 @@ public class Person {
             } else {
                 System.out.println("Sorry, you have borrowed the maximum number of books.");
             }*/
+            //Class solution:
+
             book.setCurrentPerson(this);
             book.setAvailable(false);
-            Book[] newArray = Arrays.copyOf(borrowedBooks, borrowedBooks.length+1);
-            newArray[newArray.length-1] = book;
+            Book[] newArray = Arrays.copyOf(borrowedBooks, borrowedBooks.length + 1);
+            newArray[newArray.length - 1] = book;
             borrowedBooks = newArray;
         } else {
             throw new IllegalArgumentException("Book is not available");
         }
     }
+
     public void returnBook(Book book) {
         if (book == null) throw new IllegalArgumentException("Book cannot be null");
         int counter = 0;
-        Book[] newArray = Arrays.copyOf(borrowedBooks, borrowedBooks.length-1);
+        Book[] newArray = Arrays.copyOf(borrowedBooks, borrowedBooks.length - 1);
         for (Book elementArray : borrowedBooks) {
             if (elementArray.getTitle().equalsIgnoreCase(book.getTitle())) {
                 book.setCurrentPerson(null);
