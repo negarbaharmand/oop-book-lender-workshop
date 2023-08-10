@@ -32,6 +32,7 @@ public class PersonTest {
         assertEquals(expectedResult, actualResult);
     }
 
+
     @Test
     public void testLoanBookAvailability() {
         testPerson.loanBook(mockBook);
