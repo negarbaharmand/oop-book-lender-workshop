@@ -2,23 +2,21 @@ package com.baharmand.model;
 
 import com.baharmand.model.sequencer.PersonIdGenerator;
 
+import java.util.Arrays;
+
 public class Person {
     private final Integer personId;
     private final String firstName;
     private final String lastName;
     private Book[] borrowedBooks;
-    private Integer numBorrowedBooks;
+    //private Integer numBorrowedBooks;
 
     public Person(String firstName, String lastName) {
         this.personId = PersonIdGenerator.generateNextPersonId();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.borrowedBooks = new Book[5];
-        this.numBorrowedBooks = 0;
-    }
-
-    public Integer getNumBorrowedBooks() {
-        return numBorrowedBooks;
+        this.borrowedBooks = new Book[0];
+       // this.numBorrowedBooks = 0;
     }
 
     public Book[] getBorrowedBooks() {
@@ -26,8 +24,9 @@ public class Person {
     }
 
     public void loanBook(Book book) {
+        if (book == null) throw new IllegalArgumentException("Book cannot be null");
         if (book.isAvailable()) {
-            if (numBorrowedBooks < borrowedBooks.length) {
+           /* if (numBorrowedBooks < borrowedBooks.length) {
                 borrowedBooks[numBorrowedBooks] = book;
                 numBorrowedBooks++;
                 book.setAvailable(false);
@@ -35,16 +34,35 @@ public class Person {
                 System.out.println(firstName + " " + lastName + " has borrowed the book: " + book.getTitle());
             } else {
                 System.out.println("Sorry, you have borrowed the maximum number of books.");
-            }
+            }*/
+            book.setCurrentPerson(this);
+            book.setAvailable(false);
+            Book[] newArray = Arrays.copyOf(borrowedBooks, borrowedBooks.length+1);
+            newArray[newArray.length-1] = book;
+            borrowedBooks = newArray;
         } else {
-            System.out.println("Sorry, the book is not available for borrowing.");
+            throw new IllegalArgumentException("Book is not available");
         }
+    }
+    public void returnBook(Book book) {
+        if (book == null) throw new IllegalArgumentException("Book cannot be null");
+        int counter = 0;
+        Book[] newArray = Arrays.copyOf(borrowedBooks, borrowedBooks.length-1);
+        for (Book elementArray : borrowedBooks) {
+            if (elementArray.getTitle().equalsIgnoreCase(book.getTitle())) {
+                book.setCurrentPerson(null);
+                book.setAvailable(true);
+                continue;
+            }
+            newArray[counter++] = elementArray;
+        }
+        borrowedBooks = newArray;
     }
 
     public void displayBooks() {
         System.out.println(firstName + " " + lastName + " has borrowed the following books:");
-        for (int i = 0; i < numBorrowedBooks; i++) {
-            System.out.println("- " + borrowedBooks[i].getTitle() + " by " + borrowedBooks[i].getAuthor());
+        for (Book borrowedBook : borrowedBooks) {
+            System.out.println("- " + borrowedBook.getTitle() + " by " + borrowedBook.getAuthor());
         }
     }
 

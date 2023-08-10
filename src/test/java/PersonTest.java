@@ -41,7 +41,7 @@ public class PersonTest {
     @Test
     public void testLoanBookBorrowedBooks() {
         testPerson.loanBook(mockBook);
-        assertEquals(1, testPerson.getNumBorrowedBooks());
+        assertEquals(1, testPerson.getBorrowedBooks().length);
         assertEquals(mockBook, testPerson.getBorrowedBooks()[0]);
     }
 
